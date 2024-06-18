@@ -1,0 +1,36 @@
+[project]
+name = "mario-ai"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "kkonishi" }
+]
+dependencies = [
+    "numpy==1.20",
+    "colorama==0.4.6",
+    "coverage==7.5.3",
+    "green==4.0.2",
+    "lxml==5.2.2",
+    "pybrain==0.3",
+    "python-termstyle==0.1.10",
+    "scipy==1.10.1",
+    "setuptools==69.5.1",
+    "unidecode==1.3.8",
+    "wheel==0.43.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mario_ai"]
