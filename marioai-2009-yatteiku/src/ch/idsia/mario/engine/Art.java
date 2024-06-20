@@ -38,7 +38,6 @@ public class Art
     {
         try
         {
-            System.out.println(Art.class.getResourceAsStream("mariosheet.png"));
             mario = cutImage(gc, "mariosheet.png", 32, 32);
             smallMario = cutImage(gc, "smallmariosheet.png", 16, 16);
             fireMario = cutImage(gc, "firemariosheet.png", 32, 32);
@@ -73,7 +72,7 @@ public class Art
 
         if (source == null) {
             // System.out.println("Could not read image through getResourceAsStream");
-            imageName = img + imageName;
+            imageName = img + imageName; 
             File file = new File(imageName);
             // System.out.println("File: " + file + ", exists " + file.exists() + ", length " + file.length ());
             source = ImageIO.read(file);
