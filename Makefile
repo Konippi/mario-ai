@@ -11,4 +11,4 @@ run-server:
 run-client:
 	@echo "Running client..."
 	@cd marioai-2009-yatteiku/src && \
-		python python/competition/ipymario.py
+		python python/competition/learn.py
