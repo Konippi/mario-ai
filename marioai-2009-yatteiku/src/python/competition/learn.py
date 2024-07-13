@@ -17,7 +17,7 @@ class IndividualReward:
         return str(self.reward)
 
 
-def make_next_generation(experiment, individuals):
+def make_next_generation(experiment, individuals, n_generations, current_generation):
     n_individuals = len(individuals)
 
     rewards = []
@@ -32,13 +32,15 @@ def make_next_generation(experiment, individuals):
     elite_individuals = list(map(lambda e: e.individual, sorted_rewards[:numberOfElites]))
     next_individuals = elite_individuals
     while len(next_individuals) < n_individuals:
-        father, mother = Controller.select(list(map(lambda individual_reward: individual_reward.individual, rewards)),
-                                           list(map(lambda individual_reward: individual_reward.reward, rewards)))
-        child1, child2 = Controller.two_points_cross(father, mother)
+        father, mother = Controller.select(
+            list(map(lambda individual_reward: individual_reward.individual, rewards)),
+            list(map(lambda individual_reward: individual_reward.reward, rewards))
+        )
+        child1, child2 = Controller.crossover(father, mother)
         next_individuals.append(child1)
         next_individuals.append(child2)
     next_individuals = next_individuals[:n_individuals]
-    Controller.mutate(next_individuals, mutation_rate=0.3)
+    Controller.mutate(individuals=next_individuals, n_generations=n_generations, current_generation=current_generation)
     return next_individuals
 
 
@@ -60,7 +62,7 @@ def main():
     for generation in range(n_generations):
         print("generation #{0} playing...".format(generation))
         task.env.visualization = generation % 10 == 0
-        current_individuals = make_next_generation(experiment, current_individuals)
+        current_individuals = make_next_generation(experiment, current_individuals, n_generations, generation)
         save(current_individuals, filename)
 
 
