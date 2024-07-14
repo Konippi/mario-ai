@@ -9,7 +9,7 @@ class CustomGA:
         n_individuals,
         max_tournament_ratio=0.3
     ):
-        min_tournament_size, max_tournament_size = 0, int(n_individuals * max_tournament_ratio)
+        min_tournament_size, max_tournament_size = 1, int(n_individuals * max_tournament_ratio)
         return int(min_tournament_size + (max_tournament_size - min_tournament_size) * (1 - current_generation / n_generations))
     
     @staticmethod
