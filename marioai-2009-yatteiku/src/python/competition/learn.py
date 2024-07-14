@@ -34,13 +34,20 @@ def make_next_generation(experiment, individuals, n_generations, current_generat
     while len(next_individuals) < n_individuals:
         father, mother = Controller.select(
             list(map(lambda individual_reward: individual_reward.individual, rewards)),
-            list(map(lambda individual_reward: individual_reward.reward, rewards))
+            list(map(lambda individual_reward: individual_reward.reward, rewards)),
+            current_generation,
+            n_generations
         )
-        child1, child2 = Controller.crossover(father, mother)
+        child1, child2 = Controller.crossover(
+            father, 
+            mother, 
+            current_generation, 
+            n_generations,
+        )
         next_individuals.append(child1)
         next_individuals.append(child2)
     next_individuals = next_individuals[:n_individuals]
-    Controller.mutate(individuals=next_individuals, n_generations=n_generations, current_generation=current_generation)
+    Controller.mutate(next_individuals, current_generation, n_generations)
     return next_individuals
 
 
@@ -51,7 +58,7 @@ def main():
     task.env.levelDifficulty = int(sys.argv[1]) if len(sys.argv) == 2 else 0
     experiment = EpisodicExperiment(task, agent)
 
-    n_individuals = 10
+    n_individuals = 15 # 多様性のため個体数を増やす
     filename = "learned_individuals_{0}".format(task.env.levelDifficulty)
     if os.path.exists(filename):
         initial_individuals = load(filename)
